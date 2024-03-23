@@ -13,7 +13,10 @@ function isInInputString(
     // possible to make this word with these characters.
     if (c === undefined) return false;
     // If it's down to one occurrence for this character, simply delete the entry.
-    if (c === 1) characters.delete(word[i]);
+    if (c === 1) {
+      characters.delete(word[i]);
+      continue;
+    }
     // Otherwise, decrement counter by 1.
     characters.set(word[i], c - 1);
   }
@@ -74,6 +77,9 @@ let testCases: TestCase[] = [
     ["go"],
   ],
   ["hello", ["ate", "eat", "tea", "dog", "do", "god", "goo", "go", "good"], []],
+  ["a", ["aaaaaaaaaaa"], []],
+  ["abc", [], []],
+  ["h", ["hello", "h", "hi", "hola", "0987t2y77y7t887yuh", "h"], ["h", "h"]],
 ];
 
 function checkTestCase(result: string[], expected: string[]) {
@@ -89,6 +95,7 @@ testCases.forEach((testCase: TestCase) => {
   let result = findWords(testCase[0], testCase[1]);
   console.log("------\nWord:", testCase[0]);
   console.log("Dictionary:", testCase[1]);
+  console.log("Expected:", testCase[2]);
   console.log("Result:", result);
   console.log("Test Passed?", checkTestCase(result, testCase[2]));
 });
