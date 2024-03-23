@@ -1,0 +1,68 @@
+-- INSTRUCTIONS --
+
+Given that it's a TypeScript file, please run in your terminal:
+
+    npx ts-node findWords.ts
+
+You should see the output of each Test Case run, detailing the
+word, dictionary, expected output, result and whether the test passed.
+
+-- APPROACH AND EXPLANATION --
+
+The main logic is as follows:
+
+1.  Build a HashMap with the keys as characters and values as the
+    number of occurrences of each character in the inputString.
+2.  For each word in the dictionary, check whether it can be "made"
+    by using the inputString.
+3.  To check this, iterate through each character in each word and
+    check if it's included in the HashMap. Then follow this logic
+    to see whether the word can be made using the inputString:
+        a.  If the character is not in the map, return FALSE.
+        b.  If the character has only one occurrence left, remove key.
+        c.  Otherwise, decrement occurrences by 1, then continue loop.
+        d.  If the end of the word has been reached, return TRUE.
+4.  Using the result of said function, add the word to a results
+    array if the result is TRUE, otherwise continue with the next word.
+
+-- TIME AND SPACE COMPLEXITY --
+
+Creating the HashMap:
+T: O(w) -- Where w = size of inputString
+S: O(w) -- Where w = size of inputString (worst case is with no dup characters)
+
+Iterating through words:
+T: O(n) -- Where n = size of dictionary. Copying of HashMap is linear, and is done once per word.
+S: O(1) -- Copying the array does not scale with n. At most two maps exist at a time.
+
+Iterating through each character of words:
+T: O(m) -- Where m = size of word
+S: O(1) -- No additional scaling memory used
+
+Overall, the complexity of this whole functionality is:
+T: O(w + (n * m))
+S: O(w)
+Where
+    w = size of inputString
+    n = size of dictionary
+    m = size of words
+
+If we simplify and say that the size of inputString is roughly comparable
+to the size of the dictionary, and also roughly comparable to the size of
+each word, then we have that:
+T: O(n + (n * n)) = O(n + n^2) = O(n^2)
+S: O(n)
+
+So the final complexities would be:
+T: O(n^2)
+S: O(n)
+
+So this is in simplified terms a n-squared algorithm in time complexity,
+and linear in space complexity.
+
+This makes sense, given that the actual algorithm that checks for each
+word's matching is linear, but it is ran once times the number of words.
+
+With this approach, each single character is accessed at most once, which
+tells us that we have an efficient algorithm given that we have unordered
+data to traverse (i.e. the characters within the strings are not ordered).

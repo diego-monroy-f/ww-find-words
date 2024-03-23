@@ -80,9 +80,10 @@ let testCases: TestCase[] = [
   ["a", ["aaaaaaaaaaa"], []],
   ["abc", [], []],
   ["h", ["hello", "h", "hi", "hola", "0987t2y77y7t887yuh", "h"], ["h", "h"]],
+  ["", ["he", "llo"], []],
 ];
 
-function checkTestCase(result: string[], expected: string[]) {
+function checkTestCase(result: string[], expected: string[]): boolean {
   // We don't need to sort because the order will be the same as in the
   // original dictionary.
   for (let i: number = 0; i < result.length; i++) {
