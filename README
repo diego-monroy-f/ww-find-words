@@ -15,13 +15,17 @@ The main logic is as follows:
     number of occurrences of each character in the inputString.
 2.  For each word in the dictionary, check whether it can be "made"
     by using the inputString.
-3.  To check this, iterate through each character in each word and
+3.  To check this, iterate through each character for a given word and
     check if it's included in the HashMap. Then follow this logic
     to see whether the word can be made using the inputString:
-        a.  If the character is not in the map, return FALSE.
+        a.  If the character is not in the map, return FALSE because it
+            cannot be made from the contents of the map.
         b.  If the character has only one occurrence left, remove key.
+            This means that character is no longer usable by the word.
         c.  Otherwise, decrement occurrences by 1, then continue loop.
-        d.  If the end of the word has been reached, return TRUE.
+        d.  If the end of the word has been reached, return TRUE. This
+            means we do have enough characters in inputString to make
+            this word.
 4.  Using the result of said function, add the word to a results
     array if the result is TRUE, otherwise continue with the next word.
 
@@ -58,10 +62,11 @@ T: O(n^2)
 S: O(n)
 
 So this is in simplified terms a n-squared algorithm in time complexity,
-and linear in space complexity.
+and linear in space complexity. Each inputString vs word check is linear
+in time and in space.
 
-This makes sense, given that the actual algorithm that checks for each
-word's matching is linear, but it is ran once times the number of words.
+This makes sense, given that the algorithm that checks for each
+word's matching is ran one time per word.
 
 With this approach, each single character is accessed at most once, which
 tells us that we have an efficient algorithm given that we have unordered
