@@ -52,3 +52,43 @@ function findWords(inputString: string, dictionary: string[]): string[] {
   // Return the list of words.
   return result;
 }
+
+// Test cases
+
+type ListOfWords = string[];
+type TestCase = [string, ListOfWords, ListOfWords];
+let testCases: TestCase[] = [
+  [
+    "ate",
+    ["ate", "eat", "tea", "dog", "do", "god", "goo", "go", "good"],
+    ["ate", "eat", "tea"],
+  ],
+  [
+    "oogd",
+    ["ate", "eat", "tea", "dog", "do", "god", "goo", "go", "good"],
+    ["dog", "do", "god", "goo", "go", "good"],
+  ],
+  [
+    "go",
+    ["ate", "eat", "tea", "dog", "do", "god", "goo", "go", "good"],
+    ["go"],
+  ],
+  ["hello", ["ate", "eat", "tea", "dog", "do", "god", "goo", "go", "good"], []],
+];
+
+function checkTestCase(result: string[], expected: string[]) {
+  // We don't need to sort because the order will be the same as in the
+  // original dictionary.
+  for (let i: number = 0; i < result.length; i++) {
+    if (result[i] !== expected[i]) return false;
+  }
+  return true;
+}
+
+testCases.forEach((testCase: TestCase) => {
+  let result = findWords(testCase[0], testCase[1]);
+  console.log("------\nWord:", testCase[0]);
+  console.log("Dictionary:", testCase[1]);
+  console.log("Result:", result);
+  console.log("Test Passed?", checkTestCase(result, testCase[2]));
+});
